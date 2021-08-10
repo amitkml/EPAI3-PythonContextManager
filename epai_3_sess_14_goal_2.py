@@ -74,6 +74,7 @@ class DataIterator:
     
     def __iter__(self):
         return self
+ 
     
     def __next__(self):
         row_1 = next(self._f_1)

@@ -27,6 +27,7 @@ Goal 1
     For now these four iterators are just separate, independent iterators.
 
 """
+
 import math
 from decimal import *
 import collections
