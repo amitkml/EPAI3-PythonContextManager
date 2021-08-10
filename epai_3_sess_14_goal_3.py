@@ -159,6 +159,7 @@ class DataIterator:
         return False
     
 
+
 with DataIterator('vehicles.csv', 'personal_info.csv', 'update_status.csv','employment.csv' ) as data_combined:    
     for _, row in itertools.dropwhile(lambda x : x[0] == False , data_combined):
     # for _, row in data_combined:
