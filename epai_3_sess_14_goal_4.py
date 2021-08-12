@@ -79,6 +79,7 @@ class DataIterator:
         self.data_2 = ""
         self.data_3 = ""
         self.data_4 = ""
+        self.final_data = ""
     
     def __iter__(self):
         return self
@@ -161,8 +162,15 @@ class DataIterator:
         return False
     
     def largest_grp_car_gender(self):
-        df_1 = pd.read_csv(self._f_1)
-        pass
+        df_1 = pd.read_csv(self._fname_1)
+        df_2 = pd.read_csv(self._fname_2)
+        df_3 = pd.read_csv(self._fname_3)
+        df_4 = pd.read_csv(self._fname_4)
+        self.final_data = pd.merge(df_1, df_2, on='ssn')
+        self.final_data = pd.merge(self.final_data, df_3, on='ssn')
+        self.final_data = pd.merge(self.final_data, df_4, on='ssn')
+        return self.final_data.groupby(['gender','vehicle_make']).size().reset_index(name='counts').sort_values(['counts'], ascending=False)
+        
         # for filename in self._csv_file_list:
         #     self._list_of_dataframes.append(pd.read_csv(filename))
         # self._merged_df = pd.concat(self._list_of_dataframes)
@@ -175,4 +183,5 @@ class DataIterator:
 #         print(list(row))
         
 data_combined = DataIterator('vehicles.csv', 'personal_info.csv', 'update_status.csv','employment.csv' )
-data_combined.largest_grp_car_gender()
+largest_grp_car_gender = data_combined.largest_grp_car_gender()
+print(largest_grp_car_gender.head)
